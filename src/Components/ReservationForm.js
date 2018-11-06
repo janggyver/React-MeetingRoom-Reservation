@@ -4,74 +4,69 @@ import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 import RoomSelect from './RoomSelect';
 
+
 class ReservationForm extends Component{
 
     state = {
         startDate: moment(),
-        startTime: moment(),
-        roomName: ''
+        roomName: '',
     };
 
- 
-  handleChange = (date) => {
-      this.setState({
-      startDate: date,
-      startTime: date
-    });
-  }
- 
-//   handleChangeRoom = (e) =>{
-//     this.setState(
-//         {
-//             roomName: e.tartget.value
-//         })
-// }
+    handleChangeDate = (date) => {
+        this.setState({
+            startDate: date,
+        });
+    }
+    
 
-  render() {
+    handleChangeRoom = (optionSelected) => {
+        this.setState({
+            roomName: optionSelected.value
+        })
+    }
+    
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.onCreate(this.state);
+        this.setState({
+            date:'',
+            roomName: ''
+        })
+        console.log("state after submission:" + this.state.startDate.format() + "Room Info"+ this.state.roomName);
+    }
+
+  render(){
+    const {startDate} = this.state;
+
     return (
-      <div>
-        <section date>
+      <form onSubmit = {this.handleSubmit}>
+        <div>
           <div>
             <h3>Choose a Date to Reserve</h3>
-            <DateTimePicker
-              selected={this.state.startDate}
-              onChange={this.handleChange}
+            <DateTimePicker className="componentOutline"
+              selected={startDate}
+              onChange={this.handleChangeDate}
+              value = {this.date}
             />
           </div>
-          <div>{this.state.startDate.format("LL")}</div>
-          
-        </section>
-        <section time>
+          {/* <div>{
+              this.state.startDate? this.state.startDate.format("LL") : null
+               }
+          </div> */}
+
+
           <div>
-            <h3>Choose a time slot to Reserve</h3>
-            <DateTimePicker 
-              selected={this.state.startTime}
-              onChange={this.handleChange}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              dateFormat="LT"
-              timeCaption="Time" 
-
-            />
+            <h3>Choose a meeting room to Reserve</h3>
+            <div>
+                <RoomSelect onChange={this.handleChangeRoom} />
+            </div>
+            <div>{this.state.roomName.value}</div>
           </div>
-          <div>{this.state.startDate.format("LT")}</div>
-         </section>
-         <section room>
-          <div>
-          <h3>Choose a time slot to Reserve</h3>
-          <RoomSelect 
-            onChange={this.handleChangeRoom}
-            name = 'roomName'
-            value = {this.state.roomName}
-          />
-          </div>
-         </section>
-      </div>
-
-    );
-
-  }
+          <button type="submit">등록</button>
+        </div>
+      </form>
+     )
+  };
 }
 
 export default ReservationForm
