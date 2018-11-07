@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DateTimePicker from "react-datepicker";
+import DateTimePicker from "./DateTimePicker";
 import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 import RoomSelect from './RoomSelect';
@@ -41,16 +41,15 @@ class ReservationForm extends Component{
     }
 
   render(){
-    const {startDate} = this.state;
+    //const {startDate} = this.state;
     return (
       <form onSubmit = {this.handleSubmit}>
         <div>
           <div>
             <h3>Choose a Date to Reserve</h3>
             <DateTimePicker className="componentOutline"
-              selected={startDate}
-              onChange={this.handleChangeDate}
               value = {this.date}
+              onChange = {this.handleChangeDate}
             />
             {/* <DateTimePicker className="componentOutline"
               selected={startDate}

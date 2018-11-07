@@ -29,6 +29,26 @@ class App extends Component {
     })
   }
 
+  handleRemove = (id) => {
+    const {information} = this.state;
+    this.setState({
+      information: information.filter(
+        info => info.id !==id
+      )
+    })
+  }
+
+  //update existing information
+  handleUpdate = (id, data) => {
+    const {information} = this.state;
+    this.setState({
+      information: information.map(
+        info => info.id === id
+        ? {...info, ...data} // create new object and overwrite whole data with existing data and passed data
+        : info //use the existing value if no change
+      )
+    })
+  }
 
   render() {
     const {information} = this.state;
@@ -41,10 +61,14 @@ class App extends Component {
               <ReservationForm
                 onCreate = {this.handleCreate}
               />
-              {JSON.stringify(information)}
+              {/* {JSON.stringify(information)} */}
             </div>
             <div>
-              <ReservationInfoList data={this.state.information} />
+              <ReservationInfoList 
+                data={this.state.information} 
+                onRemove = {this.handleRemove}
+                onUpdate = {this.handleUpdate}
+              />
             </div>
 
           </section>
