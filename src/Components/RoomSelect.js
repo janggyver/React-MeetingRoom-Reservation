@@ -20,8 +20,8 @@ class RoomSelect extends Component{
         const {selectedOption} = this.state;
         return(
             <div>
-                <Select className='selectBox'
-                    //selected = {selectedOption}
+                <Select className="roomDefaultBox"  //'selectBox'
+                    selected = {selectedOption}
                     value= {selectedOption}
                     onChange={this.props.onChange}
                     options={options}

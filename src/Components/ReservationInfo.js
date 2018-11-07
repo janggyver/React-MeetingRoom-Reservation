@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import DateTimePicker from "./DateTimePicker";
+import RoomSelect from './RoomSelect';
 
 class ReservationInfo extends Component {
 
     static defaultProps = {
         info: {
-            startDate: moment(),
+            startDate: '',
             roomName: "Room Name Reserved",
             id: 0
         },
@@ -18,7 +19,7 @@ class ReservationInfo extends Component {
     state = {
         editing: false, //when modify button clicked, change the value to true. Change texts to editable status for components
 
-        startDate: null,
+        startDate: '',
         roomName: ''
     }
 
@@ -33,13 +34,13 @@ class ReservationInfo extends Component {
     //logics for handling when editing value changes
     componentDidUpdate(prevProps, prevState){
         const {info, onUpdate} = this.props;
-        if(!prevState.editing && this.state.editing){ //when current state's editing changes to true
+        if(!prevState.editing && this.state.editing) { //when current state's editing changes to true
             this.setState({
                 startDate: info.startDate,
                 roomName: info.roomName
             })
         }
-        if(prevState.editing && !this.state.editing){
+        if (prevState.editing && !this.state.editing){
             onUpdate(info.id, {
                 startDate: this.state.startDate,
                 roomName: this.state.roomName
@@ -53,9 +54,19 @@ class ReservationInfo extends Component {
         onRemove(info.id);
     }
 
-    handleUpdate = () => {
-
+    handleChangeDate = (date) => {
+        this.setState({
+            startDate: date,
+        });
     }
+    
+
+    handleChangeRoom = (optionSelected) => {
+        this.setState({
+            roomName: optionSelected.value
+        })
+    }
+
     render(){
         const style = {
             border: '1px solid black',
@@ -69,8 +80,17 @@ class ReservationInfo extends Component {
             return(
                 <div style = {style}>
                     <DateTimePicker className="componentOutline"
-                        value = {this.date}
-                    />
+                        //
+                        value = {this.state.startDate}
+                        onChange = {this.handleChangeDate}
+                        //placeholder = {this.state.startDate}
+                        />
+                    <RoomSelect 
+                        selectedOption = {this.state.roomName} 
+                        onChange={this.handleChangeRoom} 
+                        />
+                    <button onClick={this.handleToggleEdit}>Apply</button>
+                    <button onClick = {this.handleRemove}>Delete</button>
                 </div>
             )
         }
@@ -82,6 +102,7 @@ class ReservationInfo extends Component {
             <div style = {style}>
                 <div>{startDate.format("LL")}</div>
                 <div>{roomName}</div>
+                <button onClick={this.handleToggleEdit}>Modify</button>
                 <button onClick = {this.handleRemove}>Delete</button>
             </div>
 

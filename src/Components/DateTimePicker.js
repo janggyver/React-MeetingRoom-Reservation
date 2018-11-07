@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class DateTimePicker extends Component {
 
     static defaultProps = {
+        value: moment(),
         onChange: console.warn("onCreate not defined")
     }
     state = {
@@ -21,7 +22,7 @@ class DateTimePicker extends Component {
     }
 
     render(){
-        
+       
         return(
             <div>
             <DateTime className="componentOutline"
@@ -29,7 +30,7 @@ class DateTimePicker extends Component {
                     onChange={this.handleChange}
                     value = {this.state.startDate}
             />
-        </div>
+            </div>
         )
     }
 }

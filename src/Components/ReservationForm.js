@@ -34,7 +34,7 @@ class ReservationForm extends Component{
         event.preventDefault();
         this.props.onCreate(this.state);
         this.setState({
-            date:'',
+            date:moment(),
             roomName: ''
         })
         console.log("state after submission:  " + this.state.startDate.format() + "Room Info  "+ this.state.roomName);
@@ -69,7 +69,7 @@ class ReservationForm extends Component{
             </div>
             <div>{this.state.roomName.value}</div>
           </div>
-          <button type="submit">등록</button>
+          <button type="submit">Reserve</button>
         </div>
       </form>
      )
