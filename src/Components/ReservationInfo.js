@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import DateTimePicker from "./DateTimePicker";
 import RoomSelect from './RoomSelect';
+import TimeSlots from './TimeSlots';
 
 class ReservationInfo extends Component {
 
@@ -9,6 +10,7 @@ class ReservationInfo extends Component {
         info: {
             startDate: '',
             roomName: "Room Name Reserved",
+            timeSlot: '',
             id: 0
         },
         onRemove: () => console.warn('onRemove not defined'),
@@ -20,7 +22,8 @@ class ReservationInfo extends Component {
         editing: false, //when modify button clicked, change the value to true. Change texts to editable status for components
 
         startDate: '',
-        roomName: ''
+        roomName: '',
+        timeSlot:''
     }
 
     //function to toggle editing value
@@ -37,13 +40,15 @@ class ReservationInfo extends Component {
         if(!prevState.editing && this.state.editing) { //when current state's editing changes to true
             this.setState({
                 startDate: info.startDate,
-                roomName: info.roomName
+                roomName: info.roomName,
+                timeSlot: info.timeSlot
             })
         }
         if (prevState.editing && !this.state.editing){
             onUpdate(info.id, {
                 startDate: this.state.startDate,
-                roomName: this.state.roomName
+                roomName: this.state.roomName,
+                timeSlot: this.state.timeSlot
             });
         }
     }
@@ -67,6 +72,11 @@ class ReservationInfo extends Component {
         })
     }
 
+    handleChangeTime = (optionSelected) => {
+        this.setState({
+            timeSlot: optionSelected.label
+        })
+    }
     render(){
         const style = {
             border: '1px solid black',
@@ -89,6 +99,10 @@ class ReservationInfo extends Component {
                         selectedOption = {this.state.roomName} 
                         onChange={this.handleChangeRoom} 
                         />
+                    <TimeSlots 
+                        selectedOption = {this.state.timeSlot} 
+                        onChange={this.handleChangeTime} 
+                        />
                     <button onClick={this.handleToggleEdit}>Apply</button>
                     <button onClick = {this.handleRemove}>Delete</button>
                 </div>
@@ -96,12 +110,13 @@ class ReservationInfo extends Component {
         }
 
 
-        const {startDate, roomName, id } = this.props.info;
+        const {startDate, roomName, timeSlot, id } = this.props.info;
 
         return(
             <div style = {style}>
                 <div>{startDate.format("LL")}</div>
                 <div>{roomName}</div>
+                <div>{timeSlot}</div>
                 <button onClick={this.handleToggleEdit}>Modify</button>
                 <button onClick = {this.handleRemove}>Delete</button>
             </div>

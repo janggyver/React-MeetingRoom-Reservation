@@ -3,6 +3,7 @@ import DateTimePicker from "./DateTimePicker";
 import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 import RoomSelect from './RoomSelect';
+import TimeSlots from './TimeSlots';
 
 
 class ReservationForm extends Component{
@@ -14,6 +15,7 @@ class ReservationForm extends Component{
     state = {
         startDate: moment(),
         roomName: '',
+        timeSlot: ''
     };
 
     
@@ -29,7 +31,14 @@ class ReservationForm extends Component{
             roomName: optionSelected.value
         })
     }
-    
+    // for time slot
+    handleChangeTime= (optionSelected) => {
+        this.setState({
+            timeSlot: optionSelected.label
+        })
+    }
+
+
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.onCreate(this.state);
@@ -58,10 +67,8 @@ class ReservationForm extends Component{
               timeIntervals={30}
               dateFormat="LT"
             /> */}
-
-
-
-                <RoomSelect onChange={this.handleChangeRoom} />
+            <TimeSlots onChange = {this.handleChangeTime} />
+            <RoomSelect onChange={this.handleChangeRoom} />
 
 
           <button type="submit">Reserve</button>

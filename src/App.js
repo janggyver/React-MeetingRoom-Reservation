@@ -12,12 +12,14 @@ class App extends Component {
       {
         id:0,
         startDate: moment("2018-10-01"),
-        roomName: 'Apple'
+        roomName: 'Apple',
+        timeSlot: '09:00 - 10:00'
       },
       {
         id:1,
         startDate: moment("2018-11-02"),
-        roomName: 'Banana'
+        roomName: 'Banana',
+        timeSlot: '14:00 - 15:00'
       }
     ],
     keyword:''

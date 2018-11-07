@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReservationInfo from './ReservationInfo';
 import './ReservationInfoList.css';
+import TimeSlots from './TimeSlots';
 
 class ReservationInfoList extends Component{
     static defaultProps = {
@@ -12,7 +13,7 @@ class ReservationInfoList extends Component{
       shouldComponentUpdate(nextProps, nextState) {
         return nextProps.data !== this.props.data;
       }
-      
+
       render() {
         const { data, onRemove, onUpdate } = this.props;
         const list = data.map(
