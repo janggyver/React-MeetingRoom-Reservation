@@ -45,8 +45,7 @@ class ReservationForm extends Component{
     return (
       <form onSubmit = {this.handleSubmit}>
         <div>
-          <div>
-            <h3>Choose a Date to Reserve</h3>
+
             <DateTimePicker className="componentOutline"
               value = {this.date}
               onChange = {this.handleChangeDate}
@@ -59,16 +58,12 @@ class ReservationForm extends Component{
               timeIntervals={30}
               dateFormat="LT"
             /> */}
-          </div>
 
 
-          <div>
-            <h3>Choose a meeting room to Reserve</h3>
-            <div>
+
                 <RoomSelect onChange={this.handleChangeRoom} />
-            </div>
-            <div>{this.state.roomName.value}</div>
-          </div>
+
+
           <button type="submit">Reserve</button>
         </div>
       </form>

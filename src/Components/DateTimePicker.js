@@ -24,13 +24,13 @@ class DateTimePicker extends Component {
     render(){
        
         return(
-            <div>
+
             <DateTime className="componentOutline"
                     selected={this.state.startDate}
                     onChange={this.handleChange}
                     value = {this.state.startDate}
             />
-            </div>
+
         )
     }
 }

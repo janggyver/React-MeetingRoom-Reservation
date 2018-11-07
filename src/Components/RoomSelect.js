@@ -19,7 +19,6 @@ class RoomSelect extends Component{
     render(){
         const {selectedOption} = this.state;
         return(
-            <div>
                 <Select className="roomDefaultBox"  //'selectBox'
                     selected = {selectedOption}
                     value= {selectedOption}
@@ -27,8 +26,6 @@ class RoomSelect extends Component{
                     options={options}
                     placeholder="Select a Room"
                 />
-            </div>
-
         )
     }
 }

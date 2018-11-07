@@ -3,7 +3,7 @@ import './App.css';
 import moment from 'moment';
 import ReservationForm from './Components/ReservationForm.js';
 import ReservationInfoList from './Components/ReservationInfoList';
-
+import SearchForm from './Components/SearchForm.js';
 
 class App extends Component {
   id = 2;
@@ -19,7 +19,8 @@ class App extends Component {
         startDate: moment("2018-11-02"),
         roomName: 'Banana'
       }
-    ]
+    ],
+    keyword:''
   };
 
   handleCreate = (data) => {
@@ -50,31 +51,58 @@ class App extends Component {
     })
   }
 
+  // handleSearch = (e) => {
+  //   this.setState({
+  //     keyword: e.target.value
+  //   })
+  // }
+
+  handleSearch = (keyword) => {
+
+    this.setState({
+      keyword
+    })
+  }
+
   render() {
-    const {information} = this.state;
+    const {information, keyword} = this.state;
+    const filteredList = information.filter(
+      info => info.roomName.indexOf(keyword) !==-1
+    );
     return (
       <div>
         <div className="">
           <header className="App-header"><h1>Welcome to the Meeting Room Reservation System</h1></header>
-          <section date>
-            <div>
+          <section >
+            <div>            
+              <h3>Choose a Date and a Room Name to Reserve</h3>
               <ReservationForm
                 onCreate = {this.handleCreate}
               />
               {/* {JSON.stringify(information)} */}
             </div>
-            <div>
-              <ReservationInfoList 
-                data={this.state.information} 
-                onRemove = {this.handleRemove}
-                onUpdate = {this.handleUpdate}
-              />
-            </div>
+            </section>
+            <header className="App-header"><h2>Reservation Search</h2></header>
+            <h3>Search by Room Name</h3>
+            <section> 
+              <div>
+                <SearchForm
+                  onSearch = {this.handleSearch}
+                />
+                {/* {JSON.stringify(information)} */}
+              </div>
+            </section>   
+            <section>
+               <header className="App-header"><h2>Reservation Lists</h2></header>
 
-          </section>
-
-        </div>
-        <div>
+               <div>
+                <ReservationInfoList 
+                  data={filteredList} 
+                  onRemove = {this.handleRemove}
+                  onUpdate = {this.handleUpdate}
+                />
+              </div>
+            </section>
 
         </div>
       </div>
