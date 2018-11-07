@@ -93,7 +93,7 @@ class App extends Component {
               </div>
             </section>   
             <section>
-               <header className="App-header"><h2>Reservation Lists</h2></header>
+               <header className="App-header"><h2>Reservation Lists </h2>{ "Number of Lists: "+ filteredList.length}</header>
 
                <div>
                 <ReservationInfoList 
