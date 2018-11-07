@@ -7,11 +7,16 @@ import RoomSelect from './RoomSelect';
 
 class ReservationForm extends Component{
 
+    static defaultProps = {
+        onCreate: console.warn("onCreate not defined")
+    }
+    
     state = {
         startDate: moment(),
         roomName: '',
     };
 
+    
     handleChangeDate = (date) => {
         this.setState({
             startDate: date,
@@ -32,12 +37,11 @@ class ReservationForm extends Component{
             date:'',
             roomName: ''
         })
-        console.log("state after submission:" + this.state.startDate.format() + "Room Info"+ this.state.roomName);
+        console.log("state after submission:  " + this.state.startDate.format() + "Room Info  "+ this.state.roomName);
     }
 
   render(){
     const {startDate} = this.state;
-
     return (
       <form onSubmit = {this.handleSubmit}>
         <div>
@@ -48,11 +52,15 @@ class ReservationForm extends Component{
               onChange={this.handleChangeDate}
               value = {this.date}
             />
+            {/* <DateTimePicker className="componentOutline"
+              selected={startDate}
+              onChange={this.handleChangeDate}
+              value = {this.date}
+              showTimeSelect
+              timeIntervals={30}
+              dateFormat="LT"
+            /> */}
           </div>
-          {/* <div>{
-              this.state.startDate? this.state.startDate.format("LL") : null
-               }
-          </div> */}
 
 
           <div>
